@@ -6,9 +6,20 @@ using UnityEngine.Events;
 
 public class Unit : NetworkBehaviour
 {
+    [SerializeField] private UnitMovement unitMovement = null;
     [SerializeField] private UnityEvent onSelected = null;
     [SerializeField] private UnityEvent onDeselected = null;
 
+
+    
+
+    // Getter to return UnitMovement to other Classes
+    public UnitMovement GetUnitMovement()
+    {
+        return unitMovement;
+    }
+
+    // Client and Server below
 
     #region Client
 

@@ -9,7 +9,7 @@ public class UnitSelectionHandler : MonoBehaviour
     [SerializeField] private LayerMask layerMask = new LayerMask(); 
     private Camera mainCamera;
 
-    private List<Unit> selectedUnits = new List<Unit>();
+    public List<Unit> SelectedUnits { get; } = new List<Unit>();
 
 
     private void Start()
@@ -21,13 +21,13 @@ public class UnitSelectionHandler : MonoBehaviour
     {
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
-            foreach (Unit selectedUnit in selectedUnits)
+            foreach (Unit selectedUnit in SelectedUnits)
             {
                 selectedUnit.Deselect();
             }
 
             // clear the list
-            selectedUnits.Clear();
+            SelectedUnits.Clear();
 
         }
         else if (Mouse.current.leftButton.wasReleasedThisFrame)
@@ -54,10 +54,10 @@ public class UnitSelectionHandler : MonoBehaviour
         // remove a selection that does not belong to us
         if (!unit.hasAuthority) { return; }
 
-        selectedUnits.Add(unit);
+        SelectedUnits.Add(unit);
 
         // Select all units in the list  that have a collider to have a green selection circle toggled
-        foreach (Unit selectedUnit in selectedUnits)
+        foreach (Unit selectedUnit in SelectedUnits)
         {
             selectedUnit.Select();
         }
