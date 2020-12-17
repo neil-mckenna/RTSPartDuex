@@ -9,6 +9,12 @@ public class RTSPlayer : NetworkBehaviour
     [SerializeField] private List<Unit> myUnits = new List<Unit>();
 
 
+    // getter
+    public List<Unit> GetMyUnits()
+    {
+        return myUnits;
+    }
+
 
     // Server and client Below
 
@@ -20,6 +26,8 @@ public class RTSPlayer : NetworkBehaviour
         // listen for these events and pass them to the method
         Unit.ServerOnUnitSpawned += ServerHandleUnitSpawned;
         Unit.ServerOnUnitDespawned += ServerHandleUnitDespawned;
+
+        
     }
 
     public override void OnStopServer()
