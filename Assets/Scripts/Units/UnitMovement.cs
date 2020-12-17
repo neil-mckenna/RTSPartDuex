@@ -9,14 +9,21 @@ public class UnitMovement : NetworkBehaviour
     [SerializeField] private NavMeshAgent agent = null;
 
     NavMeshHit hit;
-    NavMeshHit hitB;
-    bool blocked = false;
-
-
 
     // Server and Client
 
     #region Server
+
+    [ServerCallback]
+    private void Update()
+    {
+        // allows them to return to there path
+        if (!agent.hasPath) { return; }
+
+        // to stop units fighting over path position
+        if(agent.remainingDistance > agent.stoppingDistance) { return; }
+        agent.ResetPath();
+    }
 
     [Command]
     public void CmdMove(Vector3 position)
@@ -27,13 +34,6 @@ public class UnitMovement : NetworkBehaviour
             return;
         }
         agent.SetDestination(hit.position);
-    }
-
-    public void FixedUpdate()
-    {
-        blocked = NavMesh.Raycast(transform.position, hit.position, out hitB, NavMesh.AllAreas);
-        Debug.DrawLine(transform.position, hit.position, blocked ? Color.red : Color.green);
-        if (blocked) Debug.DrawLine(hitB.position, Vector3.up, Color.red);
     }
 
     #endregion

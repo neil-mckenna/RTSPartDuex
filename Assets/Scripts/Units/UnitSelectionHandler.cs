@@ -54,13 +54,17 @@ public class UnitSelectionHandler : MonoBehaviour
 
     private void StartSelectionArea()
     {
-        foreach (Unit selectedUnit in SelectedUnits)
+        if (!Keyboard.current.leftShiftKey.isPressed)
         {
-            selectedUnit.Deselect();
+            foreach (Unit selectedUnit in SelectedUnits)
+            {
+                selectedUnit.Deselect();
+            }
+
+            // clear the list
+            SelectedUnits.Clear();
         }
 
-        // clear the list
-        SelectedUnits.Clear();
 
         // turn on dragbox
         unitSelectionDragBox.gameObject.SetActive(true);
@@ -133,6 +137,9 @@ public class UnitSelectionHandler : MonoBehaviour
         // target all units inside my own units
         foreach (Unit unit in player.GetMyUnits())
         {
+            // if already selected continue onwards
+            if (SelectedUnits.Contains(unit)) { continue; }
+
             // Convert 3d to 2d world
             Vector3 screenPosition = mainCamera.WorldToScreenPoint(unit.transform.position);
 
@@ -145,7 +152,7 @@ public class UnitSelectionHandler : MonoBehaviour
                 // add to selection list
                 SelectedUnits.Add(unit);
 
-                // show the select
+                // show the select green circle
                 unit.Select();
 
             }
