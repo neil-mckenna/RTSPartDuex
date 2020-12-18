@@ -27,11 +27,24 @@ public class UnitCommandGiver : MonoBehaviour
         Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
 
         // raycast to remove everything except the selection 
-        if(!Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, layerMask))
+        if(!Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, layerMask)){ return; }
+
+        // if you select an enemy
+        if(hit.collider.TryGetComponent<Targetable>(out Targetable target))
         {
+            // move if target my own units
+            if (target.hasAuthority)
+            {
+                TryMove(hit.point);
+                return;
+            }
+
+            // target enemy
+            TryTarget(target);
             return;
         }
 
+        // move just incase 
         TryMove(hit.point);
 
     }
@@ -47,4 +60,17 @@ public class UnitCommandGiver : MonoBehaviour
             
         }
     }
+
+    private void TryTarget(Targetable target)
+    {
+
+        foreach (Unit unit in unitSelectionHandler.SelectedUnits)
+        {
+            unit.GetTargeter().CmdSetTarget(target.gameObject);
+
+        }
+    }
+
+
+
 }

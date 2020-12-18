@@ -7,6 +7,7 @@ using UnityEngine.AI;
 public class UnitMovement : NetworkBehaviour
 {
     [SerializeField] private NavMeshAgent agent = null;
+    [SerializeField] private Targeter targeter = null;
 
     NavMeshHit hit;
 
@@ -28,6 +29,8 @@ public class UnitMovement : NetworkBehaviour
     [Command]
     public void CmdMove(Vector3 position)
     {
+        // moving clears target
+        targeter.ClearTarget();
 
        //Debug.Log(agent.isOnNavMesh);
        if(!NavMesh.SamplePosition(position, out hit, 0.5f, NavMesh.AllAreas)) {
