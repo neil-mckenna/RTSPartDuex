@@ -48,7 +48,7 @@ MonoBehaviour:
   unitSelectionDragBox: {fileID: 790005027842498805}
   layerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 1024
 --- !u!114 &654902292926701693
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64,7 +64,7 @@ MonoBehaviour:
   unitSelectionHandler: {fileID: 654902292926701691}
   layerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 5121
 --- !u!1 &2927949199419379321
 GameObject:
   m_ObjectHideFlags: 0
