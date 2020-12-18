@@ -50,8 +50,8 @@ MonoBehaviour:
   autoStartServerBuild: 1
   showDebugMessages: 0
   serverTickRate: 30
-  offlineScene: 
-  onlineScene: 
+  offlineScene: Assets/Scenes/SceneMenu.unity
+  onlineScene: Assets/Scenes/Scene_Map_01.unity
   transport: {fileID: 7297966636491717630}
   networkAddress: localhost
   maxConnections: 4
