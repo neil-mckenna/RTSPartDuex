@@ -14,7 +14,7 @@ public class UnitsBaseSpawner : NetworkBehaviour , IPointerClickHandler
 
     #region Server
 
-    // server events
+    // Server events
 
     public override void OnStartServer()
     {
@@ -26,12 +26,12 @@ public class UnitsBaseSpawner : NetworkBehaviour , IPointerClickHandler
         health.ServerOnDie -= ServerHandleDie;
     }
 
-    // server methods
+    // Server methods
 
     [Server]
     private void ServerHandleDie()
     {
-        NetworkServer.Destroy(gameObject);
+        //NetworkServer.Destroy(gameObject);
     }
 
     [Command]

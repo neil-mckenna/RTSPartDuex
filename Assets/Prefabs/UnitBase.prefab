@@ -123,11 +123,12 @@ GameObject:
   - component: {fileID: 4035083113062481183}
   - component: {fileID: 2859316803962399160}
   - component: {fileID: 5715238598458858576}
-  - component: {fileID: 5019578031051521075}
+  - component: {fileID: 1948028399950987097}
   - component: {fileID: 7678544615770518046}
   - component: {fileID: 1749985720247392846}
+  - component: {fileID: 5019578031051521075}
   m_Layer: 0
-  m_Name: UnitBaseSpawner
+  m_Name: UnitBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -199,19 +200,21 @@ MonoBehaviour:
   health: {fileID: 7678544615770518046}
   unitPrefab: {fileID: 622547853164827600, guid: 1cd61eaca86675c4bbe06d3ad65f7326, type: 3}
   unitSpawnPoint: {fileID: 568146538468417875}
---- !u!65 &5019578031051521075
-BoxCollider:
+--- !u!114 &1948028399950987097
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5599258688486365242}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2, y: 2, z: 2}
-  m_Center: {x: 0, y: 1, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eea392ed92f88704f8e6514724ae2baf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  health: {fileID: 7678544615770518046}
 --- !u!114 &7678544615770518046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -242,6 +245,19 @@ MonoBehaviour:
   health: {fileID: 7678544615770518046}
   healthBarParent: {fileID: 4896981722241676164}
   healthBarImage: {fileID: 4896981721638628811}
+--- !u!65 &5019578031051521075
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5599258688486365242}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 2, z: 2}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &7721901399924546453
 GameObject:
   m_ObjectHideFlags: 0

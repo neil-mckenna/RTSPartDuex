@@ -2,12 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class RTSNetworkManager : NetworkManager
 {
     [SerializeField] private GameObject unitBaseSpawnerPrefab = null;
-
-
+    [SerializeField] private GameOverHandler gameOverHandlerPrefab = null;
 
 
 
@@ -23,6 +23,19 @@ public class RTSNetworkManager : NetworkManager
         // tell the server about spawning a base for other spawns with the player authority
         NetworkServer.Spawn(unitBaseSpawnerInstance, conn);
 
+    }
+
+    public override void OnServerSceneChanged(string sceneName)
+    {
+        if (SceneManager.GetActiveScene().name.StartsWith("Scene_Map"))
+        {
+
+            GameOverHandler gameOverHandlerInstance = Instantiate(gameOverHandlerPrefab);
+
+            NetworkServer.Spawn(gameOverHandlerInstance.gameObject);
+
+
+        }
     }
 
 
