@@ -7,6 +7,7 @@ using UnityEngine.Events;
 
 public class Unit : NetworkBehaviour
 {
+    [SerializeField] private Health health = null;
     [SerializeField] private UnitMovement unitMovement = null;
     [SerializeField] private Targeter targeter = null;
     [SerializeField] private UnityEvent onSelected = null;
@@ -38,44 +39,62 @@ public class Unit : NetworkBehaviour
 
     #region Server
 
+    // server events
+
+    // tell the server about this unit by subscribing to an event
     public override void OnStartServer()
     {
-        // tell the server about this unit by subscribing to an event
         
         ServerOnUnitSpawned?.Invoke(this);
 
+        health.ServerOnDie += ServerHandleDie;
+
     }
 
+    // tell the server about this unit by subscribing to an event
     public override void OnStopServer()
     {
-        // tell the server about this unit by subscribing to an event
         
         ServerOnUnitDespawned?.Invoke(this);
+
+        health.ServerOnDie -= ServerHandleDie;
+    }
+
+
+    // server methods
+
+    [Server]
+    private void ServerHandleDie()
+    {
+        NetworkServer.Destroy(gameObject);
     }
 
 
     #endregion
 
+    /// <summary>
+    /// 
+    /// </summary>
+
     #region Client
 
-    public override void OnStartClient()
-    {
-        // if we are server or dont have authority do nothing
-        if (!isClientOnly || !hasAuthority) { return; }
+    // client events
 
+    // for host and client
+    public override void OnStartAuthority()
+    {
         AuthorityOnUnitSpawned?.Invoke(this);
     }
-
 
     public override void OnStopClient()
     {
         // if we are server or dont have authority do nothing
-        if (!isClientOnly || !hasAuthority) { return; }
+        if (!hasAuthority) { return; }
 
         AuthorityOnUnitDespawned?.Invoke(this);
     }
 
-
+    // client methods
 
     // client method to toggle select circle
     [Client]

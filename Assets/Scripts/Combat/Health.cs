@@ -42,7 +42,7 @@ public class Health : NetworkBehaviour
         // raise dead event
         ServerOnDie?.Invoke();
 
-        //
+        // Kill stuff
         Debug.LogWarning("I died");
 
     }

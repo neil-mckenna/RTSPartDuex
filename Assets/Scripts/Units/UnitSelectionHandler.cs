@@ -23,8 +23,17 @@ public class UnitSelectionHandler : MonoBehaviour
     private void Start()
     {
         mainCamera = Camera.main;
-        
 
+        // subscribe to events
+
+        Unit.AuthorityOnUnitDespawned += AuthorityHandleUnitDespawned;
+
+    }
+
+    private void OnDestroy()
+    {
+        // unsubscribe to events
+        Unit.AuthorityOnUnitDespawned -= AuthorityHandleUnitDespawned;
     }
 
     private void Update()
@@ -94,7 +103,6 @@ public class UnitSelectionHandler : MonoBehaviour
             areaHeight / 2
             );
 
-
     }
 
     private void ClearSelectionArea()
@@ -158,10 +166,16 @@ public class UnitSelectionHandler : MonoBehaviour
             }
 
         }
-
-
-        
+   
     }
+
+    private void AuthorityHandleUnitDespawned(Unit unit)
+    {
+        // this remove dead units from the selection handlers and stops null refs
+        SelectedUnits.Remove(unit);
+    }
+
+
 
     public void CallPlayer()
     {

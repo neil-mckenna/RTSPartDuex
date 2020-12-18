@@ -64,10 +64,10 @@ public class RTSPlayer : NetworkBehaviour
 
     // Client Events
 
-    public override void OnStartClient()
+    public override void OnStartAuthority()
     {
         // only client can call
-        if (!isClientOnly) { return; }
+        if (NetworkServer.active) { return; }
 
         // listen for these events and pass them to the method
         Unit.AuthorityOnUnitSpawned += AuthorityHandleUnitSpawned;
@@ -77,7 +77,7 @@ public class RTSPlayer : NetworkBehaviour
     public override void OnStopClient()
     {
         // only client can call
-        if (!isClientOnly) { return; }
+        if (!isClientOnly || !hasAuthority) { return; }
 
         // listen for these events and pass them to the method
         Unit.AuthorityOnUnitSpawned -= AuthorityHandleUnitSpawned;
@@ -89,17 +89,12 @@ public class RTSPlayer : NetworkBehaviour
 
     private void AuthorityHandleUnitSpawned(Unit unit)
     {
-        // protection check
-        if (!hasAuthority) { return; }
-
         // add the unit to my unit list
         myUnits.Add(unit);
     }
 
     private void AuthorityHandleUnitDespawned(Unit unit)
     {
-        // protection check
-        if (!hasAuthority) { return; }
 
         // remove the unit from unit list
         myUnits.Remove(unit);
