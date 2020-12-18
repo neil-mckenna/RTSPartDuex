@@ -27,6 +27,7 @@ public class UnitSelectionHandler : MonoBehaviour
         // subscribe to events
 
         Unit.AuthorityOnUnitDespawned += AuthorityHandleUnitDespawned;
+        GameOverHandler.ClientOnGameOver += ClientHandleGameOver;
 
     }
 
@@ -34,6 +35,7 @@ public class UnitSelectionHandler : MonoBehaviour
     {
         // unsubscribe to events
         Unit.AuthorityOnUnitDespawned -= AuthorityHandleUnitDespawned;
+        GameOverHandler.ClientOnGameOver += ClientHandleGameOver;
     }
 
     private void Update()
@@ -169,10 +171,17 @@ public class UnitSelectionHandler : MonoBehaviour
    
     }
 
+    // event methods
+
     private void AuthorityHandleUnitDespawned(Unit unit)
     {
         // this remove dead units from the selection handlers and stops null refs
         SelectedUnits.Remove(unit);
+    }
+
+    private void ClientHandleGameOver(string winnerName)
+    {
+        enabled = false;
     }
 
 

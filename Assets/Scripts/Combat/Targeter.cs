@@ -1,4 +1,5 @@
 ﻿using Mirror;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,16 @@ public class Targeter : NetworkBehaviour
     public Targetable GetTarget()
     {
         return target;
+    }
+
+    public override void OnStartServer()
+    {
+        GameOverHandler.ServerOnGameOver += ServerHandleGameOver;
+    }
+
+    public override void OnStopServer()
+    {
+        GameOverHandler.ServerOnGameOver -= ServerHandleGameOver;
     }
 
     #region Server
@@ -29,6 +40,13 @@ public class Targeter : NetworkBehaviour
         target = null;
     }
 
+    // server method
+
+    [Server]
+    private void ServerHandleGameOver()
+    {
+        ClearTarget();
+    }
 
     #endregion
 

@@ -14,7 +14,7 @@ public class Health : NetworkBehaviour
 
     // server actions
     public event Action ServerOnDie;
-
+    
 
     // client actions
     public event Action<int, int> ClientOnHealthUpdated; 
@@ -26,6 +26,13 @@ public class Health : NetworkBehaviour
     public override void OnStartServer()
     {
         currentHealth = maxHealth;
+
+        UnitBase.ServerOnPlayerDie += ServerHandlePlayerDie;
+    }
+
+    public override void OnStopServer()
+    {
+        UnitBase.ServerOnPlayerDie -= ServerHandlePlayerDie;
     }
 
     [Server]
@@ -44,6 +51,16 @@ public class Health : NetworkBehaviour
 
         // Kill stuff
         Debug.LogWarning("I died");
+
+    }
+
+    private void ServerHandlePlayerDie(int connectionId)
+    {
+        // if the player who died is not us then return
+        if(connectionToClient.connectionId != connectionId) { return; }
+
+        // kill everything that has a health script that base has died
+        DealDamage(currentHealth);
 
     }
 

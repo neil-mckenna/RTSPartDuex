@@ -6,6 +6,10 @@ using UnityEngine;
 
 public class GameOverHandler : NetworkBehaviour
 {
+    // server Actions
+    public static event Action ServerOnGameOver;
+
+    // client Actions
     public static event Action<string> ClientOnGameOver; 
 
     private List<UnitBase> bases = new List<UnitBase>();
@@ -42,13 +46,15 @@ public class GameOverHandler : NetworkBehaviour
 
         if(bases.Count != 1) { return; }
 
-        Debug.LogWarning("Game is over");
+        //Debug.LogWarning("Game is over");
 
         // grab the id of the last remaining player
         int playerId = bases[0].connectionToClient.connectionId;
 
         // pass id to the method
         RpcGameOver($"Player {playerId}");
+
+        ServerOnGameOver?.Invoke();
     }
 
     #endregion
