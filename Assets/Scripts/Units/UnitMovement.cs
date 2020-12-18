@@ -8,6 +8,8 @@ public class UnitMovement : NetworkBehaviour
 {
     [SerializeField] private NavMeshAgent agent = null;
     [SerializeField] private Targeter targeter = null;
+    [SerializeField] float chaseRange = 10f;
+
 
     NavMeshHit hit;
 
@@ -18,11 +20,34 @@ public class UnitMovement : NetworkBehaviour
     [ServerCallback]
     private void Update()
     {
+        Targetable target = targeter.GetTarget();
+
+        if(targeter.GetTarget() != null)
+        {
+            // fancy square root to measure if target is inside the chase range
+            if ((target.transform.position - transform.position).sqrMagnitude > chaseRange * chaseRange)
+            {
+                agent.SetDestination(target.transform.position);
+            }
+            else if (agent.hasPath)
+            {
+                // stop basically
+                agent.ResetPath();
+            }
+
+
+            return;
+        }
+
+
+
         // allows them to return to there path
         if (!agent.hasPath) { return; }
 
         // to stop units fighting over path position
         if(agent.remainingDistance > agent.stoppingDistance) { return; }
+
+        //
         agent.ResetPath();
     }
 
@@ -37,6 +62,7 @@ public class UnitMovement : NetworkBehaviour
             return;
         }
         agent.SetDestination(hit.position);
+
     }
 
     #endregion
