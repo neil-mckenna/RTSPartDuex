@@ -124,6 +124,7 @@ GameObject:
   - component: {fileID: 2859316803962399160}
   - component: {fileID: 5715238598458858576}
   - component: {fileID: 5019578031051521075}
+  - component: {fileID: 7678544615770518046}
   m_Layer: 0
   m_Name: UnitBaseSpawner
   m_TagString: Untagged
@@ -208,6 +209,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2, y: 2, z: 2}
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &7678544615770518046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5599258688486365242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c763c50c922135a4fb03bc47d6b49640, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  maxHealth: 500
 --- !u!1 &7721901399924546453
 GameObject:
   m_ObjectHideFlags: 0
