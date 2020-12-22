@@ -36,10 +36,8 @@ public class ResourcesDisplay : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (player != null)
-        {
-            player.ClientOnResourcesUpdated -= ClientHandleResourcesUpdated;
-        }
+        player.ClientOnResourcesUpdated -= ClientHandleResourcesUpdated;
+        
     }
 
     private void ClientHandleResourcesUpdated(int resources)

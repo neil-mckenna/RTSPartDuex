@@ -63,24 +63,27 @@ public class UnitMovement : NetworkBehaviour
         agent.ResetPath();
     }
 
-    [Command]
-    public void CmdMove(Vector3 position)
-    {
-        // moving clears target
-        targeter.ClearTarget();
-
-       //Debug.Log(agent.isOnNavMesh);
-       if(!NavMesh.SamplePosition(position, out hit, 0.5f, NavMesh.AllAreas)) {
-            return;
-        }
-        agent.SetDestination(hit.position);
-
-    }
-
+    
     private void ServerHandleGameOver()
     {
         agent.ResetPath();
     }
+
+    [Server]
+    public void ServerMove(Vector3 position)
+    {
+        // moving clears target
+        targeter.ClearTarget();
+
+        //Debug.Log(agent.isOnNavMesh);
+        if (!NavMesh.SamplePosition(position, out hit, 0.5f, NavMesh.AllAreas))
+        {
+            return;
+        }
+        agent.SetDestination(hit.position);
+    }
+
+
 
 
     #endregion
@@ -90,6 +93,13 @@ public class UnitMovement : NetworkBehaviour
     /// </summary>
 
     #region Client
+
+    [Command]
+    public void CmdMove(Vector3 position)
+    {
+
+        ServerMove(position);
+    }
 
     #endregion
 }

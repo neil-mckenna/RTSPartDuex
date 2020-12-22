@@ -7,6 +7,7 @@ using UnityEngine.Events;
 
 public class Unit : NetworkBehaviour
 {
+    [SerializeField] private int resourceCost = 10;
     [SerializeField] private Health health = null;
     [SerializeField] private UnitMovement unitMovement = null;
     [SerializeField] private Targeter targeter = null;
@@ -22,6 +23,12 @@ public class Unit : NetworkBehaviour
 
 
     // Getter to return UnitMovement to other Classes
+
+    public int GetResourceCost()
+    {
+        return resourceCost;
+    }
+
     public UnitMovement GetUnitMovement()
     {
         return unitMovement;
