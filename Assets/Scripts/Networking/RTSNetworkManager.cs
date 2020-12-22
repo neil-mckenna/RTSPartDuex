@@ -9,8 +9,6 @@ public class RTSNetworkManager : NetworkManager
     [SerializeField] private GameObject unitBaseSpawnerPrefab = null;
     [SerializeField] private GameOverHandler gameOverHandlerPrefab = null;
 
-
-
     #region Server
 
     public override void OnServerAddPlayer(NetworkConnection conn)

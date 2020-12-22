@@ -11,8 +11,13 @@ public class RTSPlayer : NetworkBehaviour
     private List<Unit> myUnits = new List<Unit>();
     private List<Building> myBuildings = new List<Building>();
 
+    [SyncVar(hook =(nameof(ClientHandleResourcesUpdated)))]
+    private int resources = 500;
 
-    // getter
+    public event Action<int> ClientOnResourcesUpdated;
+
+
+    // Getters
     public List<Unit> GetMyUnits()
     {
         return myUnits;
@@ -22,6 +27,21 @@ public class RTSPlayer : NetworkBehaviour
     {
         return myBuildings;
     }
+
+    public int GetResources()
+    {
+        return resources;
+    }
+
+    // Setters
+
+    [Server]
+    public void SetResources(int newResources)
+    {
+        resources = newResources;
+    }
+
+
 
 
     // Server and client Below
@@ -149,6 +169,12 @@ public class RTSPlayer : NetworkBehaviour
 
 
     // Client Methods
+
+    private void ClientHandleResourcesUpdated(int oldResources, int newResources)
+    {
+        ClientOnResourcesUpdated?.Invoke(newResources);
+    }
+
 
     private void AuthorityHandleUnitSpawned(Unit unit)
     {
