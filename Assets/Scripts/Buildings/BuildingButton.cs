@@ -31,13 +31,14 @@ public class BuildingButton : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 
     private void Update()
     {
-        if(player == null)
+        // remove this later dirty method to grab the player 
+        if (player == null)
         {
-            player = NetworkClient.connection.identity.GetComponent<RTSPlayer>();
+            Invoke("CallPlayer", 1f);
         }
 
 
-        if(buildingPreviewInstance == null) { return; }
+        if (buildingPreviewInstance == null) { return; }
 
         UpdateBuildingPreview();
 
@@ -64,7 +65,7 @@ public class BuildingButton : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 
         if(Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, floorMask))
         {
-            // place building
+            player.CmdTryPlaceBuilding(building.GetId(), hit.point);
         }
 
         Destroy(buildingPreviewInstance);
@@ -84,6 +85,18 @@ public class BuildingButton : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         {
             buildingPreviewInstance.SetActive(true);
         }
+
+    }
+
+    public void CallPlayer()
+    {
+        // this is a workaround as player is not created until 2nd scene
+        // null exception will still happen
+
+        player = NetworkClient.connection.identity.GetComponent<RTSPlayer>();
+        Debug.LogWarning(player);
+        Debug.LogWarning(NetworkClient.connection.identity.GetComponent<RTSPlayer>());
+        //
 
     }
 
