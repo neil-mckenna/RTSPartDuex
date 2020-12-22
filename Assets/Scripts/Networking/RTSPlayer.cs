@@ -6,7 +6,9 @@ using UnityEngine;
 
 public class RTSPlayer : NetworkBehaviour
 {
+    [SerializeField] private LayerMask buildingBlockLayerMask = new LayerMask();
     [SerializeField] private Building[] buildings = new Building[0];
+    [SerializeField] private float buildingRangeLimit = 5f;
 
     private List<Unit> myUnits = new List<Unit>();
     private List<Building> myBuildings = new List<Building>();
@@ -41,7 +43,34 @@ public class RTSPlayer : NetworkBehaviour
         resources = newResources;
     }
 
+    // universal function
 
+    public bool CanPlaceBuilding(BoxCollider buildingCollider, Vector3 point)
+    {
+
+        // this checks to see if we are overlapping with other buildings, if so return
+        if (Physics.CheckBox(
+            point + buildingCollider.center,
+            buildingCollider.size / 2,
+            Quaternion.identity,
+            buildingBlockLayerMask
+            ))
+        {
+            return false;
+        }
+
+        // range check
+        foreach (Building building in myBuildings)
+        {
+            // Range check using square magnitude so have to square it(range * range) to get the correct value
+            if ((point - building.transform.position).sqrMagnitude <= buildingRangeLimit * buildingRangeLimit)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
 
     // Server and client Below
@@ -90,13 +119,21 @@ public class RTSPlayer : NetworkBehaviour
         // null check
         if(buildingToPlace == null) { return; }
 
+        // can player afford the building
+        if(resources < buildingToPlace.GetPrice()) { return; }
+
+        BoxCollider buildingCollider = buildingToPlace.GetComponent<BoxCollider>();
+
+        if(!CanPlaceBuilding(buildingCollider, point)) { return; }
+
         // spawn an instance of this building
         GameObject tryPlaceBuildingInstance = Instantiate(buildingToPlace.gameObject, point, buildingToPlace.transform.rotation);
 
         // pass instance to server and all clients with player authority
         NetworkServer.Spawn(tryPlaceBuildingInstance, connectionToClient);
 
-
+        // update the resources - the cost
+        SetResources(resources - buildingToPlace.GetPrice());
     }
 
 

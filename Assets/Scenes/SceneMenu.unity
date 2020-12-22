@@ -345,6 +345,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 978126924247831093, guid: f1289e174d82ad245bb189cda9d55b2a, type: 3}
+      propertyPath: offsetX
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 978126924247831093, guid: f1289e174d82ad245bb189cda9d55b2a, type: 3}
+      propertyPath: offsetY
+      value: 297
+      objectReference: {fileID: 0}
+    - target: {fileID: 4223300224559258634, guid: f1289e174d82ad245bb189cda9d55b2a, type: 3}
+      propertyPath: onlineScene
+      value: Assets/Scenes/Scene_Map_01.unity
+      objectReference: {fileID: 0}
+    - target: {fileID: 4223300224559258634, guid: f1289e174d82ad245bb189cda9d55b2a, type: 3}
+      propertyPath: showDebugMessages
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4895881702631651345, guid: f1289e174d82ad245bb189cda9d55b2a, type: 3}
       propertyPath: m_RootOrder
       value: 2

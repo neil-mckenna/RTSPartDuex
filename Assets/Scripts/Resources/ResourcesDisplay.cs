@@ -9,6 +9,9 @@ public class ResourcesDisplay : MonoBehaviour
 {
     [SerializeField] private TMP_Text resourcesText = null;
     private RTSPlayer player;
+    
+    
+    
 
 
     // Update is called once per frame

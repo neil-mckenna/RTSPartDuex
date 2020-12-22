@@ -18,13 +18,17 @@ public class RTSNetworkManager : NetworkManager
         // an instance of red cube
         GameObject unitBaseSpawnerInstance = Instantiate(unitBaseSpawnerPrefab, conn.identity.transform.position, conn.identity.transform.rotation);
 
+        Debug.Log(unitBaseSpawnerInstance);
+
         // tell the server about spawning a base for other spawns with the player authority
         NetworkServer.Spawn(unitBaseSpawnerInstance, conn);
 
+        
     }
 
     public override void OnServerSceneChanged(string sceneName)
     {
+        
         if (SceneManager.GetActiveScene().name.StartsWith("Scene_Map"))
         {
 
@@ -44,10 +48,10 @@ public class RTSNetworkManager : NetworkManager
     #region Client
 
 
-
-
-
-
+    public override void OnStartClient()
+    {
+        Debug.Log("Client has started");
+    }
 
 
 

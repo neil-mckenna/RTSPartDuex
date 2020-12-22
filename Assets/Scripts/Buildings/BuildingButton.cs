@@ -15,11 +15,16 @@ public class BuildingButton : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     [SerializeField] private LayerMask floorMask = new LayerMask();
 
     private Camera mainCamera;
+    private BoxCollider buildingCollider;
     private RTSPlayer player;
     private GameObject buildingPreviewInstance;
     private Renderer buildingRendererInstance;
 
-   
+    private void Awake()
+    {
+        
+        Invoke("CallPlayer", 0.001f);
+    }
 
     private void Start()
     {
@@ -27,6 +32,8 @@ public class BuildingButton : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 
         iconImage.sprite = building.GetIcon();
         priceText.text = building.GetPrice().ToString();
+
+        buildingCollider = building.GetComponent<BoxCollider>();
     }
 
     private void Update()
@@ -40,6 +47,11 @@ public class BuildingButton : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 
         if (buildingPreviewInstance == null) { return; }
 
+        if(buildingCollider == null)
+        {
+            Debug.LogWarning("No collider " + buildingCollider.gameObject);
+        }
+
         UpdateBuildingPreview();
 
     }
@@ -48,6 +60,10 @@ public class BuildingButton : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     public void OnPointerDown(PointerEventData eventData)
     {
         if(eventData.button != PointerEventData.InputButton.Left) { return; }
+
+        // stop if price is too much
+        if(player.GetResources() < building.GetPrice()) { return; }
+
 
         buildingPreviewInstance = Instantiate(building.GetPreview());
         buildingRendererInstance = buildingPreviewInstance.GetComponentInChildren<Renderer>();
@@ -85,6 +101,10 @@ public class BuildingButton : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         {
             buildingPreviewInstance.SetActive(true);
         }
+
+        Color color = player.CanPlaceBuilding(buildingCollider, hit.point) ? Color.green : Color.red;
+
+        buildingRendererInstance.material.SetColor("_BaseColor", color);
 
     }
 
