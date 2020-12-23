@@ -10,6 +10,7 @@ public class RTSPlayer : NetworkBehaviour
     [SerializeField] private Building[] buildings = new Building[0];
     [SerializeField] float buildingRangeLimit = 200f;
 
+    private Color teamColor = new Color();
     private List<Unit> myUnits = new List<Unit>();
     private List<Building> myBuildings = new List<Building>();
 
@@ -20,6 +21,11 @@ public class RTSPlayer : NetworkBehaviour
 
 
     // Getters
+    public Color GetTeamColor()
+    {
+        return teamColor;
+    }
+
 
     public List<Unit> GetMyUnits()
     {
@@ -36,7 +42,20 @@ public class RTSPlayer : NetworkBehaviour
         return resources;
     }
 
+    // Server and client Below
+
+    #region Server
+
+
     // Setters
+    [Server]
+    public void SetTeamColor(Color newTeamcolor)
+    {
+        teamColor = newTeamcolor;
+
+    }
+
+
 
     [Server]
     public void SetResources(int newResources)
@@ -76,9 +95,7 @@ public class RTSPlayer : NetworkBehaviour
     }
 
 
-    // Server and client Below
 
-    #region Server
 
     // Server Events 
     public override void OnStartServer()

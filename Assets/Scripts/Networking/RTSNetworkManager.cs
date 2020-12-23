@@ -28,6 +28,17 @@ public class RTSNetworkManager : NetworkManager
     {
         base.OnServerAddPlayer(conn);
 
+        // grab hold a player object
+        RTSPlayer player =  conn.identity.GetComponent<RTSPlayer>();
+
+        // give the new player a random team color
+        player.SetTeamColor(new Color(
+            Random.Range(0f, 1f),
+            Random.Range(0f, 1f),
+            Random.Range(0f, 1f),
+            Random.Range(0.7f, 1f)
+            ));
+
         // an instance of red cube
         GameObject unitBaseSpawnerInstance = Instantiate(unitBaseSpawnerPrefab, conn.identity.transform.position, conn.identity.transform.rotation);
 

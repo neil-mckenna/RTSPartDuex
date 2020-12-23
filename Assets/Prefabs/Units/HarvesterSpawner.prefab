@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 3240905101127955925}
   - component: {fileID: 6145736650134888096}
   - component: {fileID: 1005941963332868354}
+  - component: {fileID: 2342855419880150843}
   m_Layer: 0
   m_Name: HarvesterSpawner
   m_TagString: Untagged
@@ -168,6 +169,22 @@ MonoBehaviour:
   health: {fileID: 5763432080095507677}
   resourcesPerInterval: 10
   interval: 2
+--- !u!114 &2342855419880150843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 331587071308687147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9948707ca374d354a8f9fe40e58ab86c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  colorRenderers:
+  - {fileID: 2281851534525616589}
 --- !u!1 &1668409348880339862
 GameObject:
   m_ObjectHideFlags: 0
@@ -656,5 +673,10 @@ PrefabInstance:
 --- !u!4 &2119424934694565137 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8621001272773377620, guid: 39bba65c346d54147b06c06fbaf72ac0, type: 3}
+  m_PrefabInstance: {fileID: 7695041274982419269}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &2281851534525616589 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8457905946534845064, guid: 39bba65c346d54147b06c06fbaf72ac0, type: 3}
   m_PrefabInstance: {fileID: 7695041274982419269}
   m_PrefabAsset: {fileID: 0}
