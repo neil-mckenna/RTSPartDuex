@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using Mirror;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using System;
 
 public class BuildingButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
@@ -20,11 +21,6 @@ public class BuildingButton : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     private GameObject buildingPreviewInstance;
     private Renderer buildingRendererInstance;
 
-    private void Awake()
-    {
-        
-        Invoke("CallPlayer", 0.001f);
-    }
 
     private void Start()
     {
@@ -34,6 +30,7 @@ public class BuildingButton : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         priceText.text = building.GetPrice().ToString();
 
         buildingCollider = building.GetComponent<BoxCollider>();
+
     }
 
     private void Update()
@@ -41,31 +38,47 @@ public class BuildingButton : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         // remove this later dirty method to grab the player 
         if (player == null)
         {
-            Invoke("CallPlayer", 1f);
+            
+            Invoke("CallPlayer", Mathf.Epsilon);
         }
 
 
         if (buildingPreviewInstance == null) { return; }
 
-        if(buildingCollider == null)
+        if (buildingCollider == null)
         {
             Debug.LogWarning("No collider " + buildingCollider.gameObject);
         }
 
         UpdateBuildingPreview();
 
-    }
 
+    }
 
     public void OnPointerDown(PointerEventData eventData)
     {
+
+
         if(eventData.button != PointerEventData.InputButton.Left) { return; }
 
+        if (player == null)
+        {
+            Debug.LogError("Player in pointer " + player.gameObject);
+        }
+
+        if (building == null)
+        {
+            Debug.LogError("Building in pointer " + building);
+        }
+
         // stop if price is too much
-        if(player.GetResources() < building.GetPrice()) { return; }
+        if (player.GetResources() < building.GetPrice()) { return; }
 
 
         buildingPreviewInstance = Instantiate(building.GetPreview());
+
+        Debug.LogWarning("preview "+ buildingPreviewInstance.gameObject);
+
         buildingRendererInstance = buildingPreviewInstance.GetComponentInChildren<Renderer>();
 
         buildingPreviewInstance.SetActive(false);
@@ -74,13 +87,16 @@ public class BuildingButton : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        if(buildingPreviewInstance == null) { return; }
-
+        if(buildingPreviewInstance == null) {
+            Debug.LogError("No buildpreview gameobject passed");  
+            return;
+        }
 
         Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
 
         if(Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, floorMask))
         {
+
             player.CmdTryPlaceBuilding(building.GetId(), hit.point);
         }
 
@@ -113,10 +129,11 @@ public class BuildingButton : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         // this is a workaround as player is not created until 2nd scene
         // null exception will still happen
 
-        player = NetworkClient.connection.identity.GetComponent<RTSPlayer>();
-        Debug.LogWarning(player);
-        Debug.LogWarning(NetworkClient.connection.identity.GetComponent<RTSPlayer>());
-        //
+        Debug.LogWarning("Network connection id is " + NetworkConnection.LocalConnectionId);
+
+        player = FindObjectOfType<RTSPlayer>();
+        
+        //Debug.LogWarning("BuildingButton player is " + player.gameObject);
 
     }
 

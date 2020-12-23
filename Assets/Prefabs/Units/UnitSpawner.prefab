@@ -64,7 +64,7 @@ MonoBehaviour:
   unitSpawnPoint: {fileID: 8589176490014843416}
   remainingUnitsText: {fileID: 1449917418199640522}
   unitProgressImage: {fileID: 3083597217200835353}
-  maxUnitQueue: 5
+  maxUnitQueue: 25
   spawnMoveRange: 7
   unitSpawnDuration: 5
 --- !u!1 &6419568768675577790

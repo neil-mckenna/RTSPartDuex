@@ -8,7 +8,7 @@ public class RTSPlayer : NetworkBehaviour
 {
     [SerializeField] private LayerMask buildingBlockLayerMask = new LayerMask();
     [SerializeField] private Building[] buildings = new Building[0];
-    [SerializeField] private float buildingRangeLimit = 5f;
+    [SerializeField] float buildingRangeLimit = 200f;
 
     private List<Unit> myUnits = new List<Unit>();
     private List<Building> myBuildings = new List<Building>();
@@ -20,6 +20,7 @@ public class RTSPlayer : NetworkBehaviour
 
 
     // Getters
+
     public List<Unit> GetMyUnits()
     {
         return myUnits;
@@ -63,6 +64,8 @@ public class RTSPlayer : NetworkBehaviour
         foreach (Building building in myBuildings)
         {
             // Range check using square magnitude so have to square it(range * range) to get the correct value
+            
+            Debug.LogWarning((point - building.transform.position).sqrMagnitude + " is <= to " + buildingRangeLimit * buildingRangeLimit);
             if ((point - building.transform.position).sqrMagnitude <= buildingRangeLimit * buildingRangeLimit)
             {
                 return true;
@@ -103,6 +106,7 @@ public class RTSPlayer : NetworkBehaviour
     [Command]
     public void CmdTryPlaceBuilding(int buildingId, Vector3 point)
     {
+        Debug.Log("Building " + buildingId);
 
         Building buildingToPlace = null;
 
@@ -112,18 +116,32 @@ public class RTSPlayer : NetworkBehaviour
             if(building.GetId() == buildingId)
             {
                 buildingToPlace = building;
+                if(buildingToPlace == null)
+                {
+                    Debug.Log("buildtoPlace is " + buildingToPlace);
+                }
+                
                 break;
             }
         }
 
         // null check
         if(buildingToPlace == null) { return; }
+        Debug.Log("buildtoPlace was " + buildingToPlace);
 
         // can player afford the building
-        if(resources < buildingToPlace.GetPrice()) { return; }
+        if (resources < buildingToPlace.GetPrice()) { return; }
+        //Debug.Log("Resources " + resources + " unitPrice " + buildingToPlace.GetPrice());
 
         BoxCollider buildingCollider = buildingToPlace.GetComponent<BoxCollider>();
 
+        if(buildingCollider == null)
+        {
+            Debug.LogError(buildingCollider.gameObject + " missing");
+        }
+
+        Debug.LogWarning("Can place  building " + CanPlaceBuilding(buildingCollider, point));
+        Debug.LogWarning(buildingCollider + " " + point);
         if(!CanPlaceBuilding(buildingCollider, point)) { return; }
 
         // spawn an instance of this building

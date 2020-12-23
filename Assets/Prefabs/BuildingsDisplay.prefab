@@ -263,7 +263,7 @@ PrefabInstance:
     - target: {fileID: 4100577103956912254, guid: 569fea1e76073ef40aa034b7b54a9229, type: 3}
       propertyPath: building
       value: 
-      objectReference: {fileID: 8792157981824120503, guid: f88ae3e080947ab4fbe4f57f0ed81296, type: 3}
+      objectReference: {fileID: 5690860567455414375, guid: a9b62ac1b7a9733439733b4ade7a1e53, type: 3}
     - target: {fileID: 7318189646557906521, guid: 569fea1e76073ef40aa034b7b54a9229, type: 3}
       propertyPath: m_Name
       value: BuildingButton

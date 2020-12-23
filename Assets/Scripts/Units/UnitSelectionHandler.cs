@@ -40,26 +40,32 @@ public class UnitSelectionHandler : MonoBehaviour
 
     private void Update()
     {
+
         // remove this later dirty method to grab the player 
         if (player == null)
         {
-            Invoke("CallPlayer",1f);
+            CallPlayer();
         }
-    
+        else
+        {
+            if (Mouse.current.leftButton.wasPressedThisFrame)
+            {
+                StartSelectionArea();
 
-        if (Mouse.current.leftButton.wasPressedThisFrame)
-        {
-            StartSelectionArea();
+            }
+            else if (Mouse.current.leftButton.wasReleasedThisFrame)
+            {
+                ClearSelectionArea();
+            }
+            else if (Mouse.current.leftButton.isPressed)
+            {
+                UpdateSelectionArea();
+            }
+        }
 
-        }
-        else if (Mouse.current.leftButton.wasReleasedThisFrame)
-        {
-            ClearSelectionArea();
-        }
-        else if (Mouse.current.leftButton.isPressed)
-        {
-            UpdateSelectionArea();
-        }
+
+
+
 
     }
 
@@ -185,16 +191,14 @@ public class UnitSelectionHandler : MonoBehaviour
     }
 
 
-
     public void CallPlayer()
     {
         // this is a workaround as player is not created until 2nd scene
         // null exception will still happen
-        
-        player = NetworkClient.connection.identity.GetComponent<RTSPlayer>();
-        Debug.LogWarning(player);
-        Debug.LogWarning(NetworkClient.connection.identity.GetComponent<RTSPlayer>());
-        //
+
+        player = FindObjectOfType<RTSPlayer>();
+        Debug.LogWarning("Player in unitselection is " + player);
+
 
     }
 

@@ -345,22 +345,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 978126924247831093, guid: f1289e174d82ad245bb189cda9d55b2a, type: 3}
-      propertyPath: offsetX
-      value: 64
-      objectReference: {fileID: 0}
-    - target: {fileID: 978126924247831093, guid: f1289e174d82ad245bb189cda9d55b2a, type: 3}
-      propertyPath: offsetY
-      value: 297
+    - target: {fileID: 4223300224559258634, guid: f1289e174d82ad245bb189cda9d55b2a, type: 3}
+      propertyPath: spawnPrefabs.Array.size
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4223300224559258634, guid: f1289e174d82ad245bb189cda9d55b2a, type: 3}
-      propertyPath: onlineScene
-      value: Assets/Scenes/Scene_Map_01.unity
-      objectReference: {fileID: 0}
-    - target: {fileID: 4223300224559258634, guid: f1289e174d82ad245bb189cda9d55b2a, type: 3}
-      propertyPath: showDebugMessages
-      value: 0
-      objectReference: {fileID: 0}
+      propertyPath: spawnPrefabs.Array.data[5]
+      value: 
+      objectReference: {fileID: 331587071308687147, guid: a9b62ac1b7a9733439733b4ade7a1e53, type: 3}
     - target: {fileID: 4895881702631651345, guid: f1289e174d82ad245bb189cda9d55b2a, type: 3}
       propertyPath: m_RootOrder
       value: 2

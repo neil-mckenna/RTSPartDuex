@@ -11,6 +11,19 @@ public class RTSNetworkManager : NetworkManager
 
     #region Server
 
+    public override void OnServerConnect(NetworkConnection conn)
+    {
+        base.OnServerConnect(conn);
+
+    }
+
+    public override void OnServerReady(NetworkConnection conn)
+    {
+        base.OnServerReady(conn);
+
+    }
+
+
     public override void OnServerAddPlayer(NetworkConnection conn)
     {
         base.OnServerAddPlayer(conn);
@@ -20,15 +33,19 @@ public class RTSNetworkManager : NetworkManager
 
         Debug.Log(unitBaseSpawnerInstance);
 
+
         // tell the server about spawning a base for other spawns with the player authority
         NetworkServer.Spawn(unitBaseSpawnerInstance, conn);
 
-        
+
     }
+
+
+
 
     public override void OnServerSceneChanged(string sceneName)
     {
-        
+
         if (SceneManager.GetActiveScene().name.StartsWith("Scene_Map"))
         {
 
@@ -51,6 +68,13 @@ public class RTSNetworkManager : NetworkManager
     public override void OnStartClient()
     {
         Debug.Log("Client has started");
+    }
+
+    public override void OnClientConnect(NetworkConnection conn)
+    {
+        Debug.Log("Connected to server " + conn + " id " + conn.connectionId + " id is " + conn.identity);
+        ClientScene.AddPlayer(conn);
+
     }
 
 
