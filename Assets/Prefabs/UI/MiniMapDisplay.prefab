@@ -59,7 +59,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 153.5
+  orthographic size: 50
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -268,7 +268,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   miniMapRect: {fileID: 4054149966865500199}
-  mapScale: 40
+  mapScale: 50
   offset: -6
 --- !u!1 &4132839456967721463
 GameObject:

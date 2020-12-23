@@ -20,16 +20,20 @@ public class Minimap : MonoBehaviour, IPointerDownHandler, IDragHandler
     {
         if(playerCameraTransform != null) { return; }
 
-        if(NetworkClient.connection.identity == null)
+        /*if(NetworkClient.connection.identity == null)
         {
             return;
-        }
+        }*/
 
         if(player == null){
             CallPlayer();
         }
 
-        playerCameraTransform = player.GetCameraTransform();
+        if(player != null)
+        {
+            playerCameraTransform = player.GetCameraTransform();
+        }
+        
         
     }
 
