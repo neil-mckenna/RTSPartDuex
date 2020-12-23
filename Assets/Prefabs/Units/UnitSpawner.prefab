@@ -113,6 +113,7 @@ MonoBehaviour:
   syncInterval: 0.1
   colorRenderers:
   - {fileID: 27007147385138282}
+  - {fileID: 2580640336283579278}
 --- !u!1001 &4514419645380953315
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -317,6 +318,11 @@ GameObject:
 --- !u!23 &27007147385138282 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 6443093611548154448, guid: eaa222d01b7464141bbcf81658bf0050, type: 3}
+  m_PrefabInstance: {fileID: 6428190669845771834}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &2580640336283579278 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8855699668082427316, guid: eaa222d01b7464141bbcf81658bf0050, type: 3}
   m_PrefabInstance: {fileID: 6428190669845771834}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8751243280911845152

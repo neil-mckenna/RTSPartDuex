@@ -35,8 +35,7 @@ public class RTSNetworkManager : NetworkManager
         player.SetTeamColor(new Color(
             Random.Range(0f, 1f),
             Random.Range(0f, 1f),
-            Random.Range(0f, 1f),
-            Random.Range(0.7f, 1f)
+            Random.Range(0f, 1f)
             ));
 
         // an instance of red cube
