@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 52013165}
   - component: {fileID: 52013164}
-  - component: {fileID: 52013163}
   - component: {fileID: 52013162}
   m_Layer: 0
   m_Name: MiniMapCamera
@@ -76,14 +75,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &52013163
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 52013161}
-  m_Enabled: 1
 --- !u!114 &52013162
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,6 +193,7 @@ GameObject:
   - component: {fileID: 4054149966865500199}
   - component: {fileID: 3300440933401950889}
   - component: {fileID: 8982735783755990552}
+  - component: {fileID: 7601775337631316869}
   m_Layer: 0
   m_Name: Minimap
   m_TagString: Untagged
@@ -263,6 +255,21 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+--- !u!114 &7601775337631316869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3772638260320508745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a62bb2665f4af74dbddf3c8d8cb67e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  miniMapRect: {fileID: 4054149966865500199}
+  mapScale: 40
+  offset: -6
 --- !u!1 &4132839456967721463
 GameObject:
   m_ObjectHideFlags: 0
