@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4895881702631651345}
   - component: {fileID: 4223300224559258634}
   - component: {fileID: 7297966636491717630}
-  - component: {fileID: 978126924247831093}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -51,7 +50,7 @@ MonoBehaviour:
   showDebugMessages: 0
   serverTickRate: 30
   offlineScene: Assets/Scenes/SceneMenu.unity
-  onlineScene: Assets/Scenes/Scene_Map_01.unity
+  onlineScene: 
   transport: {fileID: 7297966636491717630}
   networkAddress: localhost
   maxConnections: 4
@@ -64,17 +63,13 @@ MonoBehaviour:
   spawnPrefabs:
   - {fileID: 6557497290596235868, guid: 49e89e1b746d71442b92a62cb86127e9, type: 3}
   - {fileID: 3133252715629742743, guid: be53680f399bd434b98c3e729d47b049, type: 3}
-  - {fileID: 9084572384993567720, guid: d05ab9d58e5913d499dacea62c985bfc, type: 3}
   - {fileID: 331587071308687147, guid: a9b62ac1b7a9733439733b4ade7a1e53, type: 3}
-  - {fileID: 3728893194396410928, guid: 39bba65c346d54147b06c06fbaf72ac0, type: 3}
   - {fileID: 7753278327180596251, guid: a00f281cea7c701419fe2e840a4e0ad5, type: 3}
   - {fileID: 42595708351814658, guid: da6df9a4494cb8f40b8421c440a94eb1, type: 3}
   - {fileID: 2932248485277474250, guid: 0e84eee423ecfe84a83be22f9cbb24d9, type: 3}
-  - {fileID: 165930209195257459, guid: 0f76deef71596ff43814116dee31646c, type: 3}
   - {fileID: 8728170589973499781, guid: 017ab3834d14f984abd42fd0ed01025f, type: 3}
   - {fileID: 7856747476938300432, guid: abd2c4676eda45f408349eb100e5eb84, type: 3}
   - {fileID: 4828345784025962473, guid: 5544d49805fd16d47a662ecbe9e2031f, type: 3}
-  - {fileID: 165930209195257459, guid: 8c1fa47a3f480674e88afc0386c6d7ac, type: 3}
   unitBaseSpawnerPrefab: {fileID: 3133252715629742743, guid: be53680f399bd434b98c3e729d47b049, type: 3}
   gameOverHandlerPrefab: {fileID: 6557497290596235859, guid: 49e89e1b746d71442b92a62cb86127e9, type: 3}
 --- !u!114 &7297966636491717630
@@ -121,18 +116,3 @@ MonoBehaviour:
   SendWindowSize: 128
   ReceiveWindowSize: 128
   debugGUI: 0
---- !u!114 &978126924247831093
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4895881702631651357}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6442dc8070ceb41f094e44de0bf87274, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  showGUI: 1
-  offsetX: 64
-  offsetY: 297
