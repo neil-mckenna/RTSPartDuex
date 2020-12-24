@@ -92,7 +92,7 @@ public class RTSPlayer : NetworkBehaviour
         {
             // Range check using square magnitude so have to square it(range * range) to get the correct value
             
-            Debug.LogWarning((point - building.transform.position).sqrMagnitude + " is <= to " + buildingRangeLimit * buildingRangeLimit);
+            //Debug.LogWarning((point - building.transform.position).sqrMagnitude + " is <= to " + buildingRangeLimit * buildingRangeLimit);
             if ((point - building.transform.position).sqrMagnitude <= buildingRangeLimit * buildingRangeLimit)
             {
                 return true;

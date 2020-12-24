@@ -33,6 +33,7 @@ public class TeamColorSetter : NetworkBehaviour
     {
         foreach (Renderer renderer in colorRenderers)
         {
+            Debug.Log(renderer);
             renderer.material.SetColor("_BaseColor",  newColor);
         }
 

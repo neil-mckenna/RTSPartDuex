@@ -83,8 +83,6 @@ public class Minimap : MonoBehaviour, IPointerDownHandler, IDragHandler
 
 
 
-
-
     public void CallPlayer()
     {
         // this is a workaround as player is not created until 2nd scene

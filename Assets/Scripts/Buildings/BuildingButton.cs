@@ -88,7 +88,7 @@ public class BuildingButton : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     public void OnPointerUp(PointerEventData eventData)
     {
         if(buildingPreviewInstance == null) {
-            Debug.LogError("No buildpreview gameobject passed");  
+            Debug.LogError("No buildpreview gameobject passed: " + eventData.selectedObject);  
             return;
         }
 

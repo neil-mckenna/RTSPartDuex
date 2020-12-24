@@ -21,15 +21,31 @@ public class RTSNetworkManager : NetworkManager
     {
         base.OnServerReady(conn);
 
+        // grab hold a player object
+        RTSPlayer player = conn.identity.GetComponent<RTSPlayer>();
+
+        // give the new player a random team color
+        player.SetTeamColor(new Color(
+            Random.Range(0.1f, 0.9f),
+            Random.Range(0.1f, 0.9f),
+            Random.Range(0.1f, 0.9f)
+            ));
+
     }
 
+    public override void OnStartServer()
+    {
+        base.OnStartServer();
+
+
+    }
 
     public override void OnServerAddPlayer(NetworkConnection conn)
     {
         base.OnServerAddPlayer(conn);
 
         // grab hold a player object
-        RTSPlayer player =  conn.identity.GetComponent<RTSPlayer>();
+        RTSPlayer player = conn.identity.GetComponent<RTSPlayer>();
 
         // give the new player a random team color
         player.SetTeamColor(new Color(

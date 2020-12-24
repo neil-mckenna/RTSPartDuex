@@ -69,10 +69,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1281
   buildings:
-  - {fileID: 8792157981824120503, guid: 5c95a6befcd17564ca5aa40438b8f926, type: 3}
-  - {fileID: 8792157981824120503, guid: 8b21010f1f7d2a348b3adb3c4f50a5ad, type: 3}
   - {fileID: 5690860567455414375, guid: a9b62ac1b7a9733439733b4ade7a1e53, type: 3}
-  buildingRangeLimit: 35
+  - {fileID: 7120902746246890118, guid: 0e84eee423ecfe84a83be22f9cbb24d9, type: 3}
+  - {fileID: 676188446814701733, guid: 5544d49805fd16d47a662ecbe9e2031f, type: 3}
+  - {fileID: 6996477919835051483, guid: be53680f399bd434b98c3e729d47b049, type: 3}
+  buildingRangeLimit: 100
 --- !u!114 &378552026747673122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -88,7 +89,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   playerCameraTransform: {fileID: 3639867654406094803}
-  cameraSpeed: 35
+  cameraSpeed: 30
   screenBorderThickness: 10
   ScreenXLimits: {x: -45, y: 45}
   ScreenZLimits: {x: -55, y: 35}
