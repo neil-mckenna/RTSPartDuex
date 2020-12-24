@@ -4,10 +4,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class LobbyMenu : MonoBehaviour
 {
     [SerializeField] private GameObject lobbyUI = null;
+    [SerializeField] private Button startGameButton = null;
 
 
     private void OnEnable()
@@ -15,14 +17,18 @@ public class LobbyMenu : MonoBehaviour
         // subscribe to our events
         RTSNetworkManager.ClientOnConnected += HandleClientConnected;
         RTSNetworkManager.ClientOnDisconnected += HandleClientDisconnected;
+        RTSPlayer.AuthorityOnPartyOwnerStateUpdated += AuthorityHandlePartyOwnerStateUpdated;
 
     }
+
+
 
     private void OnDestroy()
     {
         // unsubscribe to our events
         RTSNetworkManager.ClientOnConnected -= HandleClientConnected;
         RTSNetworkManager.ClientOnDisconnected -= HandleClientDisconnected;
+        RTSPlayer.AuthorityOnPartyOwnerStateUpdated -= AuthorityHandlePartyOwnerStateUpdated;
     }
 
     private void HandleClientConnected()
@@ -35,6 +41,13 @@ public class LobbyMenu : MonoBehaviour
     {
         
     }
+
+    public void StartGame()
+    {
+        // get the rtsplayer component and call the the startgame command on the server
+        NetworkClient.connection.identity.GetComponent<RTSPlayer>().CmdStartGame();
+    }
+
 
     public void LeaveLobby()
     {
@@ -54,8 +67,12 @@ public class LobbyMenu : MonoBehaviour
 
         }
 
+    }
 
-
+    // this only shows start button when the player is ownerleader 
+    private void AuthorityHandlePartyOwnerStateUpdated(bool state)
+    {
+        startGameButton.gameObject.SetActive(state);
     }
 
 

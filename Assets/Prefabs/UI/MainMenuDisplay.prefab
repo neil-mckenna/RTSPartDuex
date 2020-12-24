@@ -597,7 +597,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8313334538855129496}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8313334539632200106}
+        m_TargetAssemblyTypeName: LobbyMenu, Assembly-CSharp
+        m_MethodName: StartGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8313334538907967681
 GameObject:
   m_ObjectHideFlags: 0
@@ -1813,6 +1825,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lobbyUI: {fileID: 8313334539610087444}
+  startGameButton: {fileID: 8313334538855129497}
 --- !u!1 &8313334539700213712
 GameObject:
   m_ObjectHideFlags: 0
