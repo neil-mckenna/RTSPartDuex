@@ -354,6 +354,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4223300224559258634, guid: f1289e174d82ad245bb189cda9d55b2a, type: 3}
+      propertyPath: autoCreatePlayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4223300224559258634, guid: f1289e174d82ad245bb189cda9d55b2a, type: 3}
+      propertyPath: showDebugMessages
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4895881702631651345, guid: f1289e174d82ad245bb189cda9d55b2a, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -401,6 +409,10 @@ PrefabInstance:
     - target: {fileID: 4895881702631651357, guid: f1289e174d82ad245bb189cda9d55b2a, type: 3}
       propertyPath: m_Name
       value: NetworkManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 7297966636491717630, guid: f1289e174d82ad245bb189cda9d55b2a, type: 3}
+      propertyPath: debugGUI
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1289e174d82ad245bb189cda9d55b2a, type: 3}

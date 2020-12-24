@@ -9,39 +9,16 @@ public class ResourcesDisplay : MonoBehaviour
 {
     [SerializeField] private TMP_Text resourcesText = null;
     private RTSPlayer player;
-   
 
-
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
-        try
-        {
+        player = NetworkClient.connection.identity.GetComponent<RTSPlayer>();
 
+        ClientHandleResourcesUpdated(player.GetResources());
 
-            // remove this later dirty method to grab the player 
-            if (player == null)
-            {
-                Debug.LogWarning("In ResourcesDisplay player is " + player);
-                CallPlayer();
-
-            }
-
-            if (player != null)
-            {
-                ClientHandleResourcesUpdated(player.GetResources());
-
-                player.ClientOnResourcesUpdated += ClientHandleResourcesUpdated;
-            }
-        }
-
-        catch (Exception e)
-        {
-            Debug.LogError("Errors: " + e.Message + e.StackTrace + e.InnerException);
-        }
-    
+        player.ClientOnResourcesUpdated += ClientHandleResourcesUpdated;
     }
+
 
     private void OnDestroy()
     {
@@ -54,18 +31,7 @@ public class ResourcesDisplay : MonoBehaviour
         resourcesText.text = $"Resources: {resources}";
     }
 
-    public void CallPlayer()
-    {
-        // this is a workaround as player is not created until 2nd scene
-        // null exception will still happen
 
-        Debug.LogWarning("Network connection is " + NetworkConnection.LocalConnectionId);
-
-        player = FindObjectOfType<RTSPlayer>();
-
-        Debug.LogWarning("BuildingButton player is " + player);
-
-    }
 
 
 }

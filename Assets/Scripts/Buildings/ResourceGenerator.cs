@@ -14,9 +14,6 @@ public class ResourceGenerator : NetworkBehaviour
     private float timer;
     private RTSPlayer player;
 
-
-
-
     public override void OnStartServer()
     {
         timer = interval;
@@ -42,7 +39,6 @@ public class ResourceGenerator : NetworkBehaviour
         }
 
     }
-
 
     private void OnDestroy()
     {

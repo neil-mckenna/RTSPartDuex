@@ -29,19 +29,14 @@ public class BuildingButton : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         iconImage.sprite = building.GetIcon();
         priceText.text = building.GetPrice().ToString();
 
+        player = NetworkClient.connection.identity.GetComponent<RTSPlayer>();
+
         buildingCollider = building.GetComponent<BoxCollider>();
 
     }
 
     private void Update()
     {
-        // remove this later dirty method to grab the player 
-        if (player == null)
-        {
-            
-            Invoke("CallPlayer", Mathf.Epsilon);
-        }
-
 
         if (buildingPreviewInstance == null) { return; }
 
@@ -124,18 +119,7 @@ public class BuildingButton : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 
     }
 
-    public void CallPlayer()
-    {
-        // this is a workaround as player is not created until 2nd scene
-        // null exception will still happen
 
-        Debug.LogWarning("Network connection id is " + NetworkConnection.LocalConnectionId);
-
-        player = FindObjectOfType<RTSPlayer>();
-        
-        //Debug.LogWarning("BuildingButton player is " + player.gameObject);
-
-    }
 
 
 

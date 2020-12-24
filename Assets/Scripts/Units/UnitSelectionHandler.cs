@@ -24,7 +24,7 @@ public class UnitSelectionHandler : MonoBehaviour
     {
         mainCamera = Camera.main;
 
-        // subscribe to events
+        player = NetworkClient.connection.identity.GetComponent<RTSPlayer>();
 
         Unit.AuthorityOnUnitDespawned += AuthorityHandleUnitDespawned;
         GameOverHandler.ClientOnGameOver += ClientHandleGameOver;
@@ -40,32 +40,19 @@ public class UnitSelectionHandler : MonoBehaviour
 
     private void Update()
     {
-
-        // remove this later dirty method to grab the player 
-        if (player == null)
+        if (Mouse.current.leftButton.wasPressedThisFrame)
         {
-            CallPlayer();
+            StartSelectionArea();
+
         }
-        else
+        else if (Mouse.current.leftButton.wasReleasedThisFrame)
         {
-            if (Mouse.current.leftButton.wasPressedThisFrame)
-            {
-                StartSelectionArea();
-
-            }
-            else if (Mouse.current.leftButton.wasReleasedThisFrame)
-            {
-                ClearSelectionArea();
-            }
-            else if (Mouse.current.leftButton.isPressed)
-            {
-                UpdateSelectionArea();
-            }
+            ClearSelectionArea();
         }
-
-
-
-
+        else if (Mouse.current.leftButton.isPressed)
+        {
+            UpdateSelectionArea();
+        }
 
     }
 
@@ -188,18 +175,6 @@ public class UnitSelectionHandler : MonoBehaviour
     private void ClientHandleGameOver(string winnerName)
     {
         enabled = false;
-    }
-
-
-    public void CallPlayer()
-    {
-        // this is a workaround as player is not created until 2nd scene
-        // null exception will still happen
-
-        player = FindObjectOfType<RTSPlayer>();
-        Debug.LogWarning("Player in unitselection is " + player);
-
-
     }
 
 

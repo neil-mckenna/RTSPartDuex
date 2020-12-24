@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -11,6 +12,7 @@ public class LobbyMenu : MonoBehaviour
     [SerializeField] private GameObject lobbyUI = null;
     [SerializeField] private Button startGameButton = null;
 
+    [SerializeField] TMP_Text[] playerNameTexts = new TMP_Text[4];
 
     private void OnEnable()
     {
@@ -18,10 +20,9 @@ public class LobbyMenu : MonoBehaviour
         RTSNetworkManager.ClientOnConnected += HandleClientConnected;
         RTSNetworkManager.ClientOnDisconnected += HandleClientDisconnected;
         RTSPlayer.AuthorityOnPartyOwnerStateUpdated += AuthorityHandlePartyOwnerStateUpdated;
+        RTSPlayer.ClientOnInfoUpdated += ClientHandleInfoUpdated;
 
     }
-
-
 
     private void OnDestroy()
     {
@@ -29,11 +30,12 @@ public class LobbyMenu : MonoBehaviour
         RTSNetworkManager.ClientOnConnected -= HandleClientConnected;
         RTSNetworkManager.ClientOnDisconnected -= HandleClientDisconnected;
         RTSPlayer.AuthorityOnPartyOwnerStateUpdated -= AuthorityHandlePartyOwnerStateUpdated;
+        RTSPlayer.ClientOnInfoUpdated -= ClientHandleInfoUpdated;
     }
 
     private void HandleClientConnected()
     {
-        Debug.Log("is was called");
+        Debug.Log("Handle client is was called");
         lobbyUI.SetActive(true);
     }
 
@@ -42,10 +44,31 @@ public class LobbyMenu : MonoBehaviour
         
     }
 
+    private void ClientHandleInfoUpdated()
+    {
+        List<RTSPlayer> players = ((RTSNetworkManager)NetworkManager.singleton).PlayersList;
+        
+        for (int i = 0; i < players.Count; i++)
+        {
+            playerNameTexts[i].text = players[i].GetDisplayName();
+        }
+
+        for (int i = players.Count; i > playerNameTexts.Length; i++)
+        {
+            playerNameTexts[i].text = "Waiting for Player...";
+        }
+
+        startGameButton.interactable = players.Count >= 2;
+    }
+
     public void StartGame()
     {
         // get the rtsplayer component and call the the startgame command on the server
+
+        Debug.LogWarning(NetworkClient.connection.identity + "" + NetworkClient.connection.identity.name);
         NetworkClient.connection.identity.GetComponent<RTSPlayer>().CmdStartGame();
+        
+     
     }
 
 

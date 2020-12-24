@@ -16,25 +16,20 @@ public class Minimap : MonoBehaviour, IPointerDownHandler, IDragHandler
     private Transform playerCameraTransform;
     private RTSPlayer player;
 
+    private void Start()
+    {
+        player = NetworkClient.connection.identity.GetComponent<RTSPlayer>();
+    }
+
     private void Update()
     {
         if(playerCameraTransform != null) { return; }
-
-        /*if(NetworkClient.connection.identity == null)
-        {
-            return;
-        }*/
-
-        if(player == null){
-            CallPlayer();
-        }
 
         if(player != null)
         {
             playerCameraTransform = player.GetCameraTransform();
         }
-        
-        
+              
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -46,8 +41,6 @@ public class Minimap : MonoBehaviour, IPointerDownHandler, IDragHandler
     {
         MoveCamera();
     }
-
-
 
     private void MoveCamera()
     {
@@ -83,16 +76,5 @@ public class Minimap : MonoBehaviour, IPointerDownHandler, IDragHandler
 
 
 
-    public void CallPlayer()
-    {
-        // this is a workaround as player is not created until 2nd scene
-        // null exception will still happen
 
-        Debug.LogWarning("Network connection id is " + NetworkConnection.LocalConnectionId);
-
-        player = FindObjectOfType<RTSPlayer>();
-
-        //Debug.LogWarning("BuildingButton player is " + player.gameObject);
-
-    }
 }

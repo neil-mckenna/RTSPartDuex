@@ -21,13 +21,24 @@ public class RTSPlayer : NetworkBehaviour
     [SyncVar(hook = nameof(AuthorityHandlePartyOwnerStateUpdated))]
     private bool isPartyOwner = false;
 
+    [SyncVar(hook = nameof(ClientHandleDisplayNameUpdated))]
+    private string displayName;
+
+    
 
     public event Action<int> ClientOnResourcesUpdated;
 
+    public static event Action ClientOnInfoUpdated;
     public static event Action<bool> AuthorityOnPartyOwnerStateUpdated;
 
 
     // Getters
+    public string GetDisplayName()
+    {
+        return displayName;
+    }
+
+
     public bool GetIsPartyOwner()
     {
         return isPartyOwner;
@@ -64,15 +75,16 @@ public class RTSPlayer : NetworkBehaviour
     }
 
 
-
-
-
-
-
     // Server and client Below
 
     #region Server
     // Setters
+    [Server]
+    public void SetDisplayName(string displayName)
+    {
+        this.displayName = displayName;
+    }
+
 
     [Server]
     public void SetPartyOwner(bool state)
@@ -139,7 +151,9 @@ public class RTSPlayer : NetworkBehaviour
 
         Building.ServerOnBuildingSpawned += ServerHandleBuildingSpawned;
         Building.ServerOnBuildingDespawned += ServerHandleBuildingDespawned;
-        
+
+
+        DontDestroyOnLoad(gameObject);
     }
 
     public override void OnStopServer()
@@ -152,6 +166,8 @@ public class RTSPlayer : NetworkBehaviour
         Building.ServerOnBuildingDespawned -= ServerHandleBuildingDespawned;
     }
 
+
+
     // Server Methods
 
     [Command]
@@ -163,10 +179,7 @@ public class RTSPlayer : NetworkBehaviour
         // start game with network manager casting
         ((RTSNetworkManager)NetworkManager.singleton).StartGame();
 
-
     }
-
-
 
 
     [Command]
@@ -280,6 +293,8 @@ public class RTSPlayer : NetworkBehaviour
         // only client can call
         if (NetworkServer.active) { return; }
 
+        DontDestroyOnLoad(gameObject);
+
         // cast as server as an override and pass in the player to be added to list
         ((RTSNetworkManager)NetworkManager.singleton).PlayersList.Add(this);
 
@@ -288,6 +303,9 @@ public class RTSPlayer : NetworkBehaviour
 
     public override void OnStopClient()
     {
+        // 
+        ClientOnInfoUpdated?.Invoke();
+
         // stop at the server
         if (!isClientOnly) { return; }
 
@@ -311,6 +329,11 @@ public class RTSPlayer : NetworkBehaviour
     private void ClientHandleResourcesUpdated(int oldResources, int newResources)
     {
         ClientOnResourcesUpdated?.Invoke(newResources);
+    }
+
+    private void ClientHandleDisplayNameUpdated(string oldDisplayName, string newDisplayName)
+    {
+        ClientOnInfoUpdated?.Invoke();
     }
 
     private void AuthorityHandlePartyOwnerStateUpdated(bool oldState, bool newState)

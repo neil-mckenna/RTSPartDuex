@@ -25,9 +25,10 @@ public class RTSNetworkManager : NetworkManager
     public override void OnServerConnect(NetworkConnection conn)
     {
         // if game is not in progress
+        Debug.LogWarning("Game is in Progress " + isGameInProgress);
         if (!isGameInProgress) { return; }
 
-        //conn.Disconnect
+        conn.Disconnect();
     }
 
     public override void OnServerDisconnect(NetworkConnection conn)
@@ -47,14 +48,15 @@ public class RTSNetworkManager : NetworkManager
         PlayersList.Clear();
 
         isGameInProgress = false;
-
-        
+   
     }
 
     public void StartGame()
     {
         // start game with minimum of 2 players
-        if(PlayersList.Count < 2){  return; }
+        if(PlayersList.Count < 2){
+            Debug.LogError("Not Enough players!, player count is : " + PlayersList.Count);
+            return; }
 
         // stop people from joining midgame
         isGameInProgress = true;
@@ -63,7 +65,6 @@ public class RTSNetworkManager : NetworkManager
         ServerChangeScene(FIRST_MAP);
 
     }
-
 
 
     public override void OnServerAddPlayer(NetworkConnection conn)
@@ -76,6 +77,7 @@ public class RTSNetworkManager : NetworkManager
         // add player to playerlist
         PlayersList.Add(player);
 
+        player.SetDisplayName($"Player {PlayersList.Count}");
 
         // give the new player a random team color
         player.SetTeamColor(new Color(
@@ -105,6 +107,7 @@ public class RTSNetworkManager : NetworkManager
             // loop for all the players and spawn a base
             foreach (RTSPlayer player in PlayersList)
             {
+                Debug.LogWarning(player.name);
                 // Create an object and spawn the baseprefab, at Mirror inbuilt start positions with normal rotation
                 GameObject baseInstance = Instantiate(playerStartingBasePrefab, GetStartPosition().position, Quaternion.identity);
 
@@ -113,9 +116,6 @@ public class RTSNetworkManager : NetworkManager
 
 
             }
-
-            
-
 
         }
     }
@@ -154,9 +154,6 @@ public class RTSNetworkManager : NetworkManager
         // raise our events
         ClientOnDisconnected?.Invoke();
     }
-
-
-
 
 
     #endregion
